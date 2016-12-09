@@ -38,7 +38,7 @@ on early-init
 on init
     sysclktz 0
 
-loglevel 1 ####
+loglevel 6 ####
     write /proc/bootprof "INIT: on init start" ####
 
     # Backward compatibility

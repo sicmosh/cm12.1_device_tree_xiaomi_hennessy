@@ -5,7 +5,6 @@
 
 ### Credits:
   - Jian Ming Lok
-  - lbule
   - r.schlegel for Fingerprint sensor App
   - pocarropa
   - The CyanogenMod Team

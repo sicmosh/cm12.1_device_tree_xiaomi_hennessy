@@ -36,7 +36,7 @@ on init
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
     symlink /mnt/shell/emulated/0 /storage/emulated/0
-    symlink /storage/sdcard1 /mnt/sdcard1
+    symlink /storage/sdcard1 /mnt/sdcard2
     
     
 on post-fs
