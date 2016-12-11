@@ -349,6 +349,7 @@ lib/libmtk_mmutils.so
 lib/libmtkbtextspp.so
 lib/libmtkjpeg.so
 lib/libmtklimiter.so
+lib/libmtkplayer.so
 lib/libmtkshifter.so
 lib/libn3d3a.so
 lib/libnativecheck-jni.so
@@ -548,6 +549,7 @@ lib64/libmtk_drvb.so
 lib64/libmtk_mmutils.so
 lib64/libmtkjpeg.so
 lib64/libmtklimiter.so
+lib64/libmtkplayer.so
 lib64/libmtkshifter.so
 lib64/libGLESv3.so
 lib64/libhttpserver.so

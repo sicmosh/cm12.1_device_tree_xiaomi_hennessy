@@ -846,7 +846,7 @@ on property:wlan.driver.status=unloaded
 service p2p_supplicant /system/bin/wpa_supplicant \
 	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
 	-I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
-	-ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
+	-ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin \
 	-I/system/etc/wifi/p2p_supplicant_overlay.conf \
 	-O/data/misc/wifi/sockets -g@android:wpa_wlan0
 	#   we will start as root and wpa_supplicant will switch to user wifi
@@ -859,7 +859,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
 	oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
-	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
+	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin \
 	-I/system/etc/wifi/wpa_supplicant_overlay.conf \
 	-O/data/misc/wifi/sockets -g@android:wpa_wlan0
 	#   we will start as root and wpa_supplicant will switch to user wifi
@@ -887,21 +887,21 @@ service ap_daemon /system/bin/wpa_supplicant \
 
 
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -BK -dd
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_wlan0 /system/bin/dhcpcd -BK -dd
+service dhcpcd_wlan0 /system/bin/dhcpcd -aABKL
     class main
     user root
     group net_admin net_raw
     disabled
     oneshot
 
-service dhcpcd_p2p /system/bin/dhcpcd -BK -dd
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     class main
     user root
     group net_admin net_raw
@@ -929,18 +929,18 @@ service dhcp_inform /system/bin/dhcpcd -s -BK -A
     disabled
     oneshot
 
-service dhcpv6_inform /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cSIP.conf" -Dfi
+service dhcpv6_inform /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cSIP.conf" -fi
     class main
     user root
     group system radio dhcp net_admin net_raw
     disabled
     oneshot
 
-service dhcp6cDNS_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cDNS.conf" -Df wlan0
+service dhcp6cDNS_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6cDNS.conf" -f wlan0
 	disabled
 	oneshot
 
-service dhcp6c_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6c.conf" -Df wlan0
+service dhcp6c_wlan0 /system/bin/dhcp6c -c "/etc/wide-dhcpv6/dhcp6c.conf" -f wlan0
     disabled
     oneshot
 
@@ -976,31 +976,10 @@ on property:service.dhcp6c_wlan0.enable=1
     write /proc/sys/net/netfilter/nf_conntrack_tcp_no_window_check 1
     write /proc/sys/net/ipv4/tcp_rto_min 400
 
-service pppoe_wlan0 /system/bin/launchpppoe
-    user root
-    group radio cache inet misc
-    disabled
-    oneshot
-
-on property:service.pppoe_wlan0.enable=0
-    stop pppoe_wlan0
-
-on property:service.pppoe_wlan0.enable=1
-    start pppoe_wlan0
-
 service PPLAgent /system/bin/ppl_agent
     class main
     user system
     group system cache
-
-service vtservice /system/bin/vtservice
-    class main
-    socket soc_vt_tcv dgram 660 radio system
-    socket soc_vt_stk dgram 660 radio system
-    socket soc_vt_svc dgram 660 radio system
-    user root
-    group camera graphics media sdcard_rw radio sdcard_r media_rw
-    ioprio rt 4
 
 service matv /system/bin/matv
     class main
@@ -1012,12 +991,6 @@ service mtkGD /system/bin/mtkGD
     class main
     user system
     group system
-
-service dbus /system/bin/dbus-daemon --system --nofork
-    class main
-    socket dbus stream 660 bluetooth bluetooth
-    user bluetooth
-    group bluetooth net_bt_admin
 
 service bluetoothd /system/bin/bluetoothd -n
     class main
@@ -1050,11 +1023,6 @@ service agpsd /system/bin/mtk_agpsd
     socket agpsd3 stream 660 system inet
     user gps
     group gps inet sdcard_r sdcard_rw misc radio
-
-service wifi2agps /system/bin/wifi2agps
-    class main
-    user wifi
-    group gps inet
 
 service mnld /system/xbin/mnld
     class main
@@ -1187,12 +1155,6 @@ service MtkCodecService /system/bin/MtkCodecService
     class main
     user system
     group audio media sdcard_r
-
-# GuiExt Server init
-service guiext-server /system/bin/guiext-server
-    class main
-    user system
-    group system graphics
 
 service kpoc_charger /system/bin/kpoc_charger
     class charger

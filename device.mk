@@ -82,7 +82,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/enableswap.sh:root/enableswap.sh \
     $(LOCAL_PATH)/rootdir/factory_init.project.rc:root/factory_init.project.rc \
     $(LOCAL_PATH)/rootdir/factory_init.rc:root/factory_init.rc \
-    $(LOCAL_PATH)/rootdir/file_context:root/file_context \
+	$(LOCAL_PATH)/rootdir/file_context:root/file_context \
     $(LOCAL_PATH)/rootdir/fstab.charger:root/fstab.charger\
     $(LOCAL_PATH)/rootdir/fstab.mt6795:root/fstab.mt6795 \
     $(LOCAL_PATH)/rootdir/init.aee.rc:root/init.aee.rc \
@@ -99,6 +99,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init:root/init \
     $(LOCAL_PATH)/rootdir/init.hennessy.power.rc:root/init.hennessy.power.rc \
     $(LOCAL_PATH)/rootdir/init.cm.rc:root/init.cm.rc \
+    $(LOCAL_PATH)/rootdir/init.storage.rc:root/init.storage.rc \
 
 # Telecom
 PRODUCT_COPY_FILES += \
@@ -210,7 +211,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES := \
      camera.disable_zsl_mode=1 \
      ro.mount.fs=EXT4 \
      persist.service.acm.enable=0 \
-     persist.sys.usb.config=mtp \
+     persist.sys.usb.config=mtp,mass_storage \
      persist.sys.timezone=Europe/Moscow
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -218,7 +219,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=MediaTekRIL \
     ro.telephony.ril.config=fakeiccid  \
     persist.call_recording.enabled=true \
-    persist.call_recording.src=1 \
+    persist.call_recording.src=4 \
     persist.debug.wfd.enable=1
 
 PRODUCT_PACKAGES += \
@@ -252,15 +253,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
      	FmRadio \
      	libfmjni \
-	libfmmt6620 \
+	    libfmmt6620 \
         libfmmt6628 \
         libfmmt6627 \
         libfmmt6630 \
         libfmcust 
-
+    
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=8
 
 # Dalvik/HWUI
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
-$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
-
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)

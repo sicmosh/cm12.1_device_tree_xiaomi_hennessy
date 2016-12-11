@@ -27,6 +27,7 @@ on early-init
     mkdir /mnt 0775 root system
     mkdir /storage 0055 system sdcard_r
     mkdir /storage/sdcard0 0000 system system
+    mkdir /storage/sdcard1 0000 system system
     # for backwards compatibility
     symlink /storage/sdcard0 /sdcard
     symlink /storage/sdcard0 /mnt/sdcard
@@ -36,7 +37,7 @@ on init
 
 sysclktz 0
 
-loglevel 5
+loglevel 0
 
 # Backward compatibility
     symlink /system/etc /etc
